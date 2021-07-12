@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Twitter</title>
+</head>
+<body class="bg-dark">
+
+    <style>
+        .parent{
+            width: 300px;
+            margin: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+            padding-bottom: 30px;
+        }
+        input{
+            border-radius: 20px;
+            border: 1px solid white;
+            height: 40px;
+        }
+        input:focus{
+            outline: none;
+        }
+        #email, #pass{
+            position: absolute;
+        }
+        /* .team1{
+            display: flex;
+            align-items: center;
+        } */
+        .bird{
+            font-size: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-self: center;
+            margin: auto;
+            padding: 5px;
+            
+        }
+        .twit{
+            font-weight: bold;
+        }
+        .head{
+            margin: auto;
+        }
+        .btn{
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+        }
+        /* @media(max-width: 500px){
+            .parent{
+                width: 100%;
+            }
+        } */
+    </style>
+    
+
+    <div class="card card-body parent shadow-sm bg-light">
+        <div class="head">
+            <div class=" bird shadow-sm">
+                <i class="fa fa-twitter text-primary"></i>
+            </div>
+            <h5 class="twit text-primary">TWITTER</h5>
+        </div>
+        <div class="team py-4">
+            <div id="email">
+                <span class="px-3">Email</span>
+            </div>
+            <input type="text" id="email2" class="w-100 shadow-sm px-3" onfocus="shiftEmail('email')" onblur="returnEmail('emailR')">
+        </div>
+        <div class="team py-3">
+            <div id="pass">
+                <span class="px-3">Password</span>
+            </div>
+            <input type="password" id="pass2" class="w-100 shadow-sm px-3" onfocus="shiftPassword('pass')" onblur="returnPassword('passR')">
+        </div>
+        <div>
+            <button class="w-100 btn btn-primary" onclick="validate()">LOGIN</button>
+        </div>
+        <div>
+            <p id="result1"></p>
+            <p id="result2"></p>
+        </div>
+    </div>
+
+    <script>
+        // document.querySelectorAll('div.team input').forEach((el) =>{
+        //     el.addEventListener('keyup', function(event){
+        //         if(event.target.value.length > 0){
+        //             el.closest('div.team').children[0].classList.add('shift')
+        //             return;
+        //         }
+        //         el.closest('div.team').children[0].classList.remove('shift')
+        //     })
+        // })
+        let display = document.getElementById('email')
+        let display2 = document.getElementById('pass')
+        let result1;
+        let result2;
+
+        function shiftEmail(params){
+            if(params == 'email'){
+                display.style.transition = 'all 2s'
+                display.style.transform = 'translateY(-30px)'
+            }
+        }
+        function shiftPassword(params){
+            if(params == 'pass'){
+                display2.style.transition = 'all 2s'
+                display2.style.transform = 'translateY(-30px)'
+            }
+        }
+        function returnEmail(params){
+            if(params == 'emailR'){
+                
+                if(document.getElementById('email2').value == ''){
+                    display.style.transition = 'all 1s';
+                    display.style.transform = 'translateY(0px)'
+                }
+            }
+        }
+        function returnPassword(params){
+            if(params == 'passR'){
+             if(document.getElementById('pass2').value == ''){
+                display2.style.transition = 'all 2s';
+                display2.style.transform = 'translateY(0px)'
+             }
+            }
+        }
+        function getData(){
+            display = document.getElementById('email2').value;
+            display2 = document.getElementById('pass2').value
+            result1 = document.getElementById('result1')
+            result2 = document.getElementById('result2')
+        }
+        function verifyEmail(){
+            display = document.getElementById('email2').value
+            result1 = document.getElementById('result1')
+            let regex = /^[a-z0-9@.]{8,40}$/
+            let check = regex.test(display)
+
+            if(!check || display.length < 8){
+                result1.innerHTML = `Invalid Email`
+            }
+            else{
+                result1.innerHTML = `Email approved`
+            }
+        }
+        function verifyPassword(){
+            display2 = document.getElementById('pass2').value
+            result2 = document.getElementById('result2')
+            let regex = /[A-za-z0-9#]{8,16}/
+            let check = regex.test(display2);
+            if(!check || display2.length < 8){
+                result2.innerHTML = `Invalid Password`
+            }
+            else{
+                result2.innerHTML = `Password verified`
+            }
+        }
+        function validate(){
+            getData();
+            verifyEmail()
+            verifyPassword()
+
+        }
+    </script>
+</body>
+</html>
